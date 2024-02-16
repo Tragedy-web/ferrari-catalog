@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
+
+.container {
+  background: transparent;
+  overflow-y: hidden;
+  height: 100vh;
+}
+
+.header {
+  margin: 0 auto;
+  background-color: #070b17;
+}
+
+.logo {
+  max-width: 45px;
+  max-height: 50px;
+}
+
+.login {
+  color: white;
+  background: transparent;
+}
+
+.login:hover {
+  box-shadow: 1px 1px 10px 1px #25a3d9;
+}
+
+.registration {
+  background-color: #4d2b8c;
+}
+
+.content {
+  color: white;
+  font-size: 35px;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+.footer {
+  background: transparent;
+  color: white;
+}
+
+@media (max-width: 480px) {
+  .content {
+    font-size: 25px;
+  }
+  .header {
+    padding: 0 30px;
+  }
+}
+
+@media (max-width: 345px) {
+  .content {
+    font-size: 18px;
+  }
+
+  .header {
+    padding: 0 10px;
+  }
+
+  .footer {
+    padding: 6px;
+    text-align: center;
+  }
+}
