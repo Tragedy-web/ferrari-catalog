@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Layout } from '../../layout/Layout'
 import { useTypedSelector } from '../../store/hooks/typedHooks'
-import { Grid } from 'antd'
 
 export function FerrariCatalog() {
 	const navigate = useNavigate()
