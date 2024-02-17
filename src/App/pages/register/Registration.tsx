@@ -5,7 +5,7 @@ import { Button } from '../../components/ui/button/Button.tsx'
 import { useTypedDispatch } from '../../store/hooks/typedHooks.ts'
 import { sucessAuth } from '../../store/slices/authSlice.ts'
 import { TypeAuth } from '../../store/types/authSlice.types.ts'
-import { regex } from './regex/regex.ts'
+import { regex } from './regex/Regex.ts'
 import reg from './styles/registration.module.scss'
 
 export function Registration() {
