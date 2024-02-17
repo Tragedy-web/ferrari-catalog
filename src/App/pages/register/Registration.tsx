@@ -1,33 +1,33 @@
 import { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import { Button } from '../../components/ui/button/Button.tsx'
 import { useTypedDispatch } from '../../store/hooks/typedHooks.ts'
 import { sucessAuth } from '../../store/slices/authSlice.ts'
-import { TypeAuth } from '../../types/authSlice.types.ts'
-import { regex } from './regex/Regex.ts'
-import reg from './registration.module.scss'
+import { TypeAuth } from '../../store/types/authSlice.types.ts'
+import { regex } from './regex/regex.ts'
+import reg from './styles/registration.module.scss'
 
-export const Registration = () => {
+export function Registration() {
 	const dispatch = useTypedDispatch()
 	const navigate = useNavigate()
-
 	const [userEmail, setUserEmail] = useState('')
 	const [userPassword, setUserPassword] = useState('')
 	const [emailError, setEmailError] = useState('')
 	const [userPasswordError, setUserPasswordError] = useState('')
-	const [secondPassword, setSecondPassword] = useState('')
-	const [secondPasswordError, setSecondPasswordError] = useState('')
+	const [secondUserPassword, setSecondUserPassword] = useState('')
+	const [secondUserPasswordError, setSecondUserPasswordError] = useState('')
 	const [formValid, setFormValid] = useState(false)
 
 	useEffect(() => {
-		if (!userEmail || !userPassword || !secondPassword) {
+		if (!userEmail || !userPassword || !secondUserPassword) {
 			setFormValid(false)
-		} else if (emailError || userPasswordError || secondPasswordError) {
+		} else if (emailError || userPasswordError || secondUserPasswordError) {
 			setFormValid(false)
 		} else {
 			setFormValid(true)
 		}
-	}, [userEmail, userPassword, secondPassword])
+	}, [userEmail, userPassword, secondUserPassword])
 
 	const emailHandler = useCallback(
 		(e: ChangeEvent<HTMLInputElement>) => {
@@ -41,36 +41,36 @@ export const Registration = () => {
 
 	const passwordHandler = (e: ChangeEvent<HTMLInputElement>) => {
 		setUserPassword(e.target.value)
-
-		if (userPassword.length < 3) {
+		if (e.target.value.length <= 3) {
 			setUserPasswordError('Длина пароля меньше 3 символов')
 		} else setUserPasswordError('')
+		if (e.target.value && secondUserPassword) {
+			comparePasswords(e.target.value, secondUserPassword)
+		}
 	}
 
 	const secondPasswordHandler = (e: ChangeEvent<HTMLInputElement>) => {
-		setSecondPassword(e.target.value)
-
-		if (e.target.value.length !== 0) {
-			comparePasswords(userPassword, e.target.value)
+		setSecondUserPassword(e.target.value)
+		if (e.target.value && userPassword) {
+			comparePasswords(e.target.value, userPassword)
 		}
 	}
 
 	const comparePasswords = useCallback(
 		(first: string, second: string) => {
 			if (first !== second) {
-				setSecondPasswordError('Пароли не совпадают')
-			} else setSecondPasswordError('')
+				setSecondUserPasswordError('Пароли не совпадают')
+			} else setSecondUserPasswordError('')
 		},
-		[userEmail, userPassword, setSecondPasswordError]
+		[userEmail, userPassword, setSecondUserPasswordError]
 	)
 
 	const sendData = () => {
 		const data: TypeAuth = {
 			email: userEmail,
 			password: userPassword,
-			confirmPassword: secondPassword,
+			confirmPassword: secondUserPassword,
 		}
-
 		dispatch(sucessAuth(data))
 		navigate('/login')
 	}
@@ -102,14 +102,12 @@ export const Registration = () => {
 					<input
 						className={`${reg.input} w100`}
 						type='password'
-						value={secondPassword}
+						value={secondUserPassword}
 						onChange={secondPasswordHandler}
 					/>
-					<span className={reg.error}>{secondPasswordError}</span>
+					<span className={reg.error}>{secondUserPasswordError}</span>
 				</div>
-				<button disabled={!formValid} onClick={sendData} className={reg.btn}>
-					Register
-				</button>
+				<Button title='Register' sendData={sendData} isDisabled={!formValid} />
 			</div>
 		</div>
 	)

@@ -2,12 +2,12 @@ import { ChangeEvent, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { useTypedSelector } from '../../store/hooks/typedHooks'
-import login from './login.module.scss'
+import login from './styles/login.module.scss'
+import { Button } from '../../components/ui/button/Button'
 
-export const Login = () => {
+export function Login() {
 	const { user } = useTypedSelector(state => state.authReducer)
 	const navigate = useNavigate()
-
 	const [loginEmail, setLoginEmail] = useState('')
 	const [loginPassword, setLoginPassword] = useState('')
 	const [loginEmailError, setLoginEmailError] = useState('')
@@ -15,36 +15,28 @@ export const Login = () => {
 	const [valid, setValid] = useState(false)
 
 	useEffect(() => {
-		if (
-			loginEmailError ||
-			loginPasswordError ||
-			!loginEmail ||
-			!loginPassword
-		) {
+		if (!loginEmail || !loginPassword) {
+			setValid(false)
+		} else if (loginEmailError || loginPasswordError) {
 			setValid(false)
 		} else setValid(true)
 	}, [loginEmail, loginPassword])
 
 	const loginEmailHandler = (e: ChangeEvent<HTMLInputElement>) => {
 		setLoginEmail(e.target.value)
+		if (e.target.value !== user?.email) {
+			setLoginEmailError('Данные не совпадают. Проверьте ваш email')
+		} else setLoginEmailError('')
 	}
 
 	const loginPasswordHandler = (e: ChangeEvent<HTMLInputElement>) => {
 		setLoginPassword(e.target.value)
+		if (e.target.value !== user?.password) {
+			setLoginPasswordError('Данные не совпадают. Проверьте ваш пароль')
+		} else setLoginPasswordError('')
 	}
 
-	const onLoginHandler = () => {
-		if (loginEmail !== user?.email) {
-			setLoginEmailError('Данные не совпадают. Проверьте ваш email')
-		}
-		if (loginPassword !== user?.password) {
-			setLoginPasswordError('Данные не совпадают. Проверьте ваш пароль')
-		} else {
-			setLoginEmailError('')
-			setLoginPasswordError('')
-			navigate('/catalog')
-		}
-	}
+	const onLoginHandler = () => navigate('/catalog')
 
 	return (
 		<div className={`${login.parent} df jcc aic`}>
@@ -70,13 +62,7 @@ export const Login = () => {
 					<span className={login.error}>{loginPasswordError}</span>
 				</div>
 				<div className={`${login.router} df aic jcsb`}>
-					<button
-						onClick={onLoginHandler}
-						disabled={!valid}
-						className={login.btn}
-					>
-						Login
-					</button>
+					<Button isDisabled={!valid} sendData={onLoginHandler} title='Login' />
 					<span>
 						Don't have an account?{' '}
 						<Link className={login.link} to={'/registration'}>

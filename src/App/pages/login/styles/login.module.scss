@@ -35,41 +35,43 @@
 	margin-top: 7px;
 }
 
-.btn {
-	padding: 5px;
-	background: linear-gradient(
-		135deg,
-		rgba(23, 23, 23, 1) 0%,
-		rgba(56, 56, 56, 1) 50%,
-		rgba(43, 45, 44, 1) 100%
-	);
-	border-radius: 10px;
-	font-size: 2em;
-	width: 100%;
-	max-width: 200px;
-	margin-top: 25px;
-}
-
 .link {
 	color: gray;
 	cursor: pointer;
 }
 
-@media (max-width: 335px) {
+@media (max-width: 464px) {
 	.btn {
-		max-width: 150px;
+		max-width: 115px;
+		font-size: 1.5em;
 	}
 	.error {
-		font-size: 0.9em;
+		font-size: 1em;
 	}
 	.container {
-		padding: 15px;
+		padding: 20px;
 	}
 	.title {
 		margin-top: 5px;
 		font-size: 1.5em;
 	}
-	.btn {
-		margin-top: 5px;
+	.input {
+		padding: 10px;
+		font-size: 1.3em;
+	}
+}
+
+@media (max-width: 362px) {
+	.error {
+		font-size: 0.9em;
+	}
+	.router {
+		flex-direction: column;
+
+		span {
+			font-size: 1em;
+			margin-top: 10px;
+			margin-right: auto;
+		}
 	}
 }

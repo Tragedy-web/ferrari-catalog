@@ -1,0 +1,64 @@
+{
+	"cards": [
+		{
+			"id": 1,
+			"brand": "ferrari x5",
+			"price": 20000,
+			"image": ""
+		},
+		{
+			"id": 2,
+			"brand": "ferrari x5",
+			"price": 20000,
+			"image": ""
+		},
+		{
+			"id": 3,
+			"brand": "ferrari x5",
+			"price": 20000,
+			"image": ""
+		},
+		{
+			"id": 4,
+			"brand": "ferrari x5",
+			"price": 20000,
+			"image": ""
+		},
+		{
+			"id": 5,
+			"brand": "ferrari x5",
+			"price": 20000,
+			"image": ""
+		},
+		{
+			"id": 6,
+			"brand": "ferrari x5",
+			"price": 20000,
+			"image": ""
+		},
+		{
+			"id": 7,
+			"brand": "ferrari x5",
+			"price": 20000,
+			"image": ""
+		},
+		{
+			"id": 8,
+			"brand": "ferrari x5",
+			"price": 20000,
+			"image": ""
+		},
+		{
+			"id": 9,
+			"brand": "ferrari x5",
+			"price": 20000,
+			"image": ""
+		},
+		{
+			"id": 10,
+			"brand": "ferrari x5",
+			"price": 20000,
+			"image": ""
+		}
+	]
+}

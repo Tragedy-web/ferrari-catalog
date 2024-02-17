@@ -1,0 +1,25 @@
+.container {
+	height: 100vh;
+	position: relative;
+	.header {
+		height: 10%;
+		background-color: #070b17;
+		.search {
+			width: max(200px);
+		}
+	}
+
+	.content {
+		overflow-y: auto;
+		height: 80%;
+	}
+
+	.footer {
+		position: absolute;
+		height: 10%;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: #070b17;
+	}
+}

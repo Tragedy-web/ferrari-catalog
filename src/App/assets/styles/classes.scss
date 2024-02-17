@@ -1,47 +1,51 @@
 .cw {
-  color: white;
+	color: white;
 }
 
 .rcsf {
-   font-family: 'Roboto Condensed', sans-serif;
+	font-family: 'Roboto Condensed', sans-serif;
 }
 
 .cp {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 .df {
-  display: flex;
+	display: flex;
 }
 
 .jcc {
-  justify-content: center;
+	justify-content: center;
 }
 
 .aic {
-  align-items: center;
+	align-items: center;
+}
+
+.pr {
+	position: relative;
 }
 
 .jcsb {
-  justify-content: space-between;
+	justify-content: space-between;
 }
 
 .jcfe {
-  justify-content: flex-end;
+	justify-content: flex-end;
 }
 
 .fdc {
-  flex-direction: column
+	flex-direction: column;
 }
 
 .w100 {
-  width: 100%;
+	width: 100%;
 }
 
 .tac {
-  text-align: center;
+	text-align: center;
 }
 
 .gr {
-  gap: 0 10px;
+	gap: 0 10px;
 }
