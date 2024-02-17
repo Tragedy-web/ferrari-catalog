@@ -1,9 +1,11 @@
 import { Button, Layout } from 'antd'
 import { useNavigate } from 'react-router-dom'
-const { Header, Content, Footer } = Layout
+const { Header, Footer } = Layout
+import Title from 'antd/es/typography/Title'
 
 import ferrari from '../../../../public/Ferrari.svg'
-import home from './home.module.scss'
+import home from './styles/home.module.scss'
+import { Content } from 'antd/es/layout/layout'
 
 export const HomePage = () => {
 	const navigate = useNavigate()
@@ -14,7 +16,7 @@ export const HomePage = () => {
 				<div className='w100 df aic'>
 					<img src={ferrari} alt='' className={home.logo} />
 				</div>
-				<div className='df gr'>
+				<div className='df gr10'>
 					<Button className={home.login} onClick={() => navigate('/login')}>
 						Sign In
 					</Button>
@@ -28,7 +30,7 @@ export const HomePage = () => {
 				</div>
 			</Header>
 			<Content className={`${home.content} df jcc aic`}>
-				Пожалуйста, войдите в аккаунт
+				<Title className={home.title}>Пожалуйста, войдите в аккаунт</Title>
 			</Content>
 			<Footer className={home.footer}>
 				Ferrari Catalog | &copy; tragedyfiftyone
