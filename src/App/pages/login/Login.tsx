@@ -1,39 +1,39 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
-import { useTypedSelector } from '../../store/hooks/typedHooks'
-import login from './styles/login.module.scss'
 import { Button } from '../../components/ui/button/Button'
+import { useTypedSelector } from '../../store/hooks/useTypedSelector'
+import login from './styles/login.module.scss'
 
 export function Login() {
-	const { user } = useTypedSelector(state => state.authReducer)
+	const user = useTypedSelector(state => state.auth.user)
 	const navigate = useNavigate()
-	const [loginEmail, setLoginEmail] = useState('')
-	const [loginPassword, setLoginPassword] = useState('')
-	const [loginEmailError, setLoginEmailError] = useState('')
-	const [loginPasswordError, setLoginPasswordError] = useState('')
+	const [email, setEmail] = useState('')
+	const [password, setPassword] = useState('')
+	const [emailError, setEmailError] = useState('')
+	const [passwordError, setPasswordError] = useState('')
 	const [valid, setValid] = useState(false)
 
 	useEffect(() => {
-		if (!loginEmail || !loginPassword) {
+		if (!email || !password) {
 			setValid(false)
-		} else if (loginEmailError || loginPasswordError) {
+		} else if (emailError || passwordError) {
 			setValid(false)
 		} else setValid(true)
-	}, [loginEmail, loginPassword])
+	}, [email, password])
 
 	const loginEmailHandler = (e: ChangeEvent<HTMLInputElement>) => {
-		setLoginEmail(e.target.value)
+		setEmail(e.target.value)
 		if (e.target.value !== user?.email) {
-			setLoginEmailError('Данные не совпадают. Проверьте ваш email')
-		} else setLoginEmailError('')
+			setEmailError('Данные не совпадают. Проверьте ваш email')
+		} else setEmailError('')
 	}
 
 	const loginPasswordHandler = (e: ChangeEvent<HTMLInputElement>) => {
-		setLoginPassword(e.target.value)
+		setPassword(e.target.value)
 		if (e.target.value !== user?.password) {
-			setLoginPasswordError('Данные не совпадают. Проверьте ваш пароль')
-		} else setLoginPasswordError('')
+			setPasswordError('Данные не совпадают. Проверьте ваш пароль')
+		} else setPasswordError('')
 	}
 
 	const onLoginHandler = () => navigate('/catalog')
@@ -41,26 +41,26 @@ export function Login() {
 	return (
 		<div className={`${login.parent} df jcc aic`}>
 			<div className={`${login.container} cw df fdc rcsf`}>
-				<div className={login.section}>
+				<section className={login.section}>
 					<h2 className={login.title}>Email</h2>
 					<input
-						value={loginEmail}
+						value={email}
 						className={`${login.input} w100`}
 						onChange={loginEmailHandler}
 						type='text'
 					/>
-					<span className={login.error}>{loginEmailError}</span>
-				</div>
-				<div className={login.section}>
+					<span className={login.error}>{emailError}</span>
+				</section>
+				<section className={login.section}>
 					<h2 className={login.title}>Password</h2>
 					<input
-						value={loginPassword}
+						value={password}
 						onChange={loginPasswordHandler}
 						className={`${login.input} w100`}
 						type='password'
 					/>
-					<span className={login.error}>{loginPasswordError}</span>
-				</div>
+					<span className={login.error}>{passwordError}</span>
+				</section>
 				<div className={`${login.router} df aic jcsb`}>
 					<Button isDisabled={!valid} sendData={onLoginHandler} title='Login' />
 					<span>
