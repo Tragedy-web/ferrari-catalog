@@ -1,0 +1,54 @@
+$worksans: 'Work Sans', sans-serif;
+
+.container {
+	height: 100vh;
+	font-family: $worksans;
+	padding: 0 10px;
+	.content {
+		background-color: #060606;
+		width: 100%;
+		max-width: 600px;
+		padding: 30px;
+		border-radius: 10px;
+	}
+	.section {
+		.input {
+			color: white;
+			background-color: rgba(255, 255, 255, 0.02);
+			padding: 5px;
+			border-radius: 5px;
+			font-size: 1.3em;
+			margin-top: 10px;
+		}
+		.input::placeholder {
+			color: rgba(255, 255, 255, 0.7);
+		}
+		h1 {
+			color: white;
+			font-size: 1.5em;
+		}
+		.error {
+			font-size: 1.1em;
+			color: red;
+			margin-top: 5px;
+		}
+	}
+	.validate {
+		color: white;
+		.redirect {
+			color: gray;
+			font-size: 1.3em;
+		}
+	}
+}
+
+@media (max-width: 416px) {
+	.container {
+		.content {
+			padding: 15px;
+			.error {
+				font-size: 0.9em;
+			}
+		}
+	}
+}

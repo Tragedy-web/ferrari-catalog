@@ -7,6 +7,7 @@ import { sucessAuth } from '../../store/slices/authSlice.ts'
 import { TypeAuth } from '../../store/types/authSlice.types.ts'
 import { regex } from './regex/Regex.ts'
 import reg from './styles/registration.module.scss'
+import { Field } from '../../components/field/Field.tsx'
 
 export function Registration() {
 	const dispatch = useTypedDispatch()
@@ -77,36 +78,27 @@ export function Registration() {
 	return (
 		<div className={`${reg.parent} df jcc aic`}>
 			<div className={`${reg.container} cw df fdc rcsf`}>
-				<section className={reg.section}>
-					<h2 className={reg.title}>Email</h2>
-					<input
-						className={`${reg.input} w100`}
-						type='text'
-						value={userEmail}
-						onChange={emailHandler}
-					/>
-					<span className={reg.error}>{emailError}</span>
-				</section>
-				<section className={reg.section}>
-					<h2 className={reg.title}>Password</h2>
-					<input
-						className={`${reg.input} w100`}
-						type='password'
-						value={firstPassword}
-						onChange={passwordHandler}
-					/>
-					<span className={reg.error}>{firstPasswordError}</span>
-				</section>
-				<section className={reg.section}>
-					<h2 className={reg.title}>Confirm Password</h2>
-					<input
-						className={`${reg.input} w100`}
-						type='password'
-						value={secondPassword}
-						onChange={secondPasswordHandler}
-					/>
-					<span className={reg.error}>{secondPasswordError}</span>
-				</section>
+				<Field
+					title='Email'
+					type='text'
+					value={userEmail}
+					changeData={emailHandler}
+					error={emailError}
+				/>
+				<Field
+					title='Password'
+					type='password'
+					value={firstPassword}
+					changeData={passwordHandler}
+					error={firstPasswordError}
+				/>
+				<Field
+					title='Confirm Password'
+					type='password'
+					value={secondPassword}
+					changeData={secondPasswordHandler}
+					error={secondPasswordError}
+				/>
 				<Button title='Register' sendData={sendData} isDisabled={!formValid} />
 			</div>
 		</div>

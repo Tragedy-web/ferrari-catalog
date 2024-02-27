@@ -1,70 +1,11 @@
 .parent {
 	height: 100vh;
 	padding: 0 10px;
-}
-
-.container {
-	background-color: #262626;
-	padding: 25px;
-	border-radius: 10px;
-	width: 100%;
-	max-width: 600px;
-}
-
-.section {
-	padding: 10px 0 0 0;
-}
-
-.title {
-	font-size: 2em;
-}
-
-.input {
-	color: white;
-	padding: 15px;
-	font-size: 1.5em;
-	border-radius: 10px;
-	background-color: rgba(255, 255, 255, 0.04);
-	margin-top: 15px;
-}
-
-.error {
-	color: red;
-	font-size: 1.3em;
-	margin-top: 7px;
-}
-
-.btn {
-	padding: 5px;
-	background: linear-gradient(
-		135deg,
-		rgba(23, 23, 23, 1) 0%,
-		rgba(56, 56, 56, 1) 50%,
-		rgba(43, 45, 44, 1) 100%
-	);
-	border-radius: 10px;
-	font-size: 2em;
-	max-width: 200px;
-	margin-top: 25px;
-}
-
-@media (max-width: 335px) {
-	.btn {
-		max-width: 150px;
-	}
-	.error {
-		font-size: 0.9em;
-	}
 	.container {
-		padding: 15px;
-	}
-	.title {
-		font-size: 1.5em;
-	}
-	.btn {
-		margin-top: 10px;
-		padding: 3px;
-		font-size: 1.5em;
-		max-width: 100px;
+		background-color: #060607;
+		padding: 25px;
+		border-radius: 10px;
+		width: 100%;
+		max-width: 600px;
 	}
 }

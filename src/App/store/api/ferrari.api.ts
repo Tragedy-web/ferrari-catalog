@@ -9,8 +9,8 @@ export const ferrariApi = createApi({
 
 	baseQuery: fetchBaseQuery({ baseUrl: api_url }),
 	endpoints: builder => ({
-		getAllFerrari: builder.query<TypeFerrariApi[], null>({
-			query: () => `/cards`,
+		getAllFerrari: builder.query<TypeFerrariApi[], string>({
+			query: searchParameter => `/cards?brand=${searchParameter}`,
 		}),
 	}),
 })

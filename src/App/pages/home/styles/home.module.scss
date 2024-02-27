@@ -1,12 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
+$ws: 'Work Sans', sans-serif;
 
 .container {
 	background: transparent;
 	overflow-y: hidden;
 	height: 100vh;
+	font-family: $ws;
 	.header {
-		margin: 0 auto;
-		background-color: #070b17;
+		background-color: #060606;
 		.logo {
 			max-width: 45px;
 			max-height: 50px;
@@ -18,49 +18,44 @@
 		}
 
 		.login:hover {
-			box-shadow: 1px 1px 10px 1px #25a3d9;
+			box-shadow: 1px 1px 10px 3px #252525;
+			background: transparent;
+			border: 1.5px solid #252525;
+			color: white;
 		}
 
 		.registration {
-			background-color: #4d2b8c;
+			background-color: #141414;
+		}
+		.registration:hover {
+			background-color: #202020;
 		}
 	}
-	.title {
-		color: white;
-		font-size: 2.5em;
-		font-family: 'Roboto Condensed', sans-serif;
-		font-weight: 500;
+	.content {
+		padding: 0 10px;
+		.title {
+			color: white;
+			font-size: 2.5em;
+			font-weight: 500;
+		}
 	}
 	.footer {
-		background: transparent;
+		background-color: #060607;
 		color: white;
 	}
 }
 
-@media (max-width: 480px) {
-	.container {
-		.title {
-			font-size: 2em;
-		}
-	}
+@media (max-width: 426px) {
 	.header {
 		padding: 0 30px;
 	}
 }
 
-@media (max-width: 390px) {
-	.container {
-		.title {
-			font-size: 1.3em;
-		}
-	}
-
+@media (max-width: 316px) {
 	.header {
 		padding: 0 10px;
 	}
-
 	.footer {
-		padding: 6px;
-		text-align: center;
+		padding: 20px 0;
 	}
 }

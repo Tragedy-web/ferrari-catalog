@@ -1,0 +1,33 @@
+.section {
+	padding-top: 10px;
+	.title {
+		font-size: 2em;
+	}
+	.input {
+			color: white;
+			padding: 15px;
+			font-size: 1.5em;
+			border-radius: 10px;
+			background-color: rgba(255, 255, 255, 0.02);
+			margin-top: 15px;
+		}
+	.error {
+		color: red;
+		font-size: 1.3em;
+		margin-top: 7px;
+	}
+}
+
+@media (max-width: 335px) {
+	.section {
+		.error {
+			font-size: 0.9em;
+		}
+		.container {
+			padding: 15px;
+		}
+		.title {
+			font-size: 1.5em;
+		}
+	}
+}
