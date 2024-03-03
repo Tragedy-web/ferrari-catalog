@@ -12,7 +12,7 @@ type TypeField = {
 
 export function Field({
 	title,
-	placeholder,
+	placeholder = 'Введите текст...',
 	type,
 	value,
 	error,

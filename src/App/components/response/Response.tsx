@@ -8,7 +8,11 @@ type TypeResponse = {
 	goodsProducts: (value: boolean) => void
 }
 
-export function Response({ searchRequest, purchased, goodsProducts }: TypeResponse) {
+export const Response = ({
+	searchRequest,
+	purchased,
+	goodsProducts,
+}: TypeResponse) => {
 	const { data, error } = useGetAllFerrariQuery(searchRequest)
 	return (
 		<>

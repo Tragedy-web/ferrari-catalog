@@ -1,38 +1,50 @@
 import { Button } from 'antd'
-import { SearchOutlined, ShoppingCartOutlined } from '@ant-design/icons'
+import {
+	SearchOutlined,
+	ShoppingCartOutlined,
+	UserOutlined,
+} from '@ant-design/icons'
 import { Content, Footer, Header } from 'antd/es/layout/layout'
-import { PropsWithChildren, ChangeEvent } from 'react'
+import { PropsWithChildren } from 'react'
 import { Input } from 'antd'
 import { useNavigate } from 'react-router-dom'
 
 import layout from './styles/layout.module.scss'
+import { useTypedSelector } from '../store/hooks/useTypedSelector'
 
 type TypeLayout = {
 	search: string
-	setSearch: (value: string) => void
-	postDataHandler: (query: string) => void
+	setQueryTerm: (searchParam: string) => void
+	setSearch: (param: string) => void
 	openCart: (active: boolean) => void
 }
 
 export function Layout({
 	children,
 	search,
+	setQueryTerm,
 	setSearch,
-	postDataHandler,
 	openCart,
 }: PropsWithChildren<TypeLayout>) {
+	const { avatar } = useTypedSelector(state => state.user)
 	const navigate = useNavigate()
 
-	const onSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
-		setSearch(e.target.value)
-	}
-	
-	const postData = () => postDataHandler(search)
-
+	const postData = () => setQueryTerm(search)
 	return (
 		<div className={`${layout.container} cw`}>
 			<Header className={`${layout.header} df jcsb aic`}>
-				<div>
+				<div className='df aic gr10'>
+					<Button
+						className='df aic cw'
+						type='link'
+						onClick={() => navigate('/profile')}
+					>
+						{avatar ? (
+							<img src={avatar} className={layout.avatar} />
+						) : (
+							<UserOutlined />
+						)}
+					</Button>
 					<Button
 						className={layout.admin}
 						onClick={() => navigate('/admin')}
@@ -45,7 +57,7 @@ export function Layout({
 					<div className='df aic gr10'>
 						<Input
 							value={search}
-							onChange={onSearchHandler}
+							onChange={e => setSearch(e.target.value)}
 							type='search'
 							placeholder='Request...'
 							className={layout.field}
@@ -61,7 +73,9 @@ export function Layout({
 					</div>
 				</div>
 			</Header>
-			<Content className={layout.content}>{children}</Content>
+			<Content className={layout.content}>
+				{children}
+			</Content>
 			<Footer className={`${layout.footer} cw`}>
 				Ferrari Catalog | &copy; tragedyfiftyone
 			</Footer>

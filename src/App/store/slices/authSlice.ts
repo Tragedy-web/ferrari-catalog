@@ -1,14 +1,12 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import {
-	TypeAdminAuth,
 	TypeAuth,
 	TypeInitialState,
 } from '../types/authSlice.types'
 
 const initialState: TypeInitialState = {
 	user: null,
-	error: null,
-	isAdmin: null,
+	isAdmin: false
 }
 
 export const authSlice = createSlice({
@@ -18,7 +16,7 @@ export const authSlice = createSlice({
 		sucessAuth: (state, action: PayloadAction<TypeAuth>) => {
 			state.user = action.payload
 		},
-		adminAuth: (state, action: PayloadAction<TypeAdminAuth>) => {
+		adminAuth: (state, action: PayloadAction<boolean>) => {
 			state.isAdmin = action.payload
 		},
 	},

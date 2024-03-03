@@ -8,28 +8,28 @@
 		width: 100%;
 		max-width: 600px;
 		.router {
+			padding-top: 20px;
 			.link {
 				color: gray;
 				cursor: pointer;
 			}
 		}
 	}
-}
-
-@media (max-width: 464px) {
-	.container {
-		padding: 20px;
+	@media (max-width: 464px) {
+		.container {
+			padding: 20px;
+		}
 	}
-}
 
-@media (max-width: 362px) {
-	.container {
-		.router {
-			flex-direction: column;
-			span {
-				font-size: 1em;
-				margin-top: 10px;
-				margin-right: auto;
+	@media (max-width: 374px) {
+		.container {
+			.router {
+				flex-direction: column;
+				justify-content: flex-start;
+				span {
+					font-size: 1em;
+					margin-top: 10px;
+				}
 			}
 		}
 	}

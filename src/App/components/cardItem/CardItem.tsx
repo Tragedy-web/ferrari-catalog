@@ -24,9 +24,13 @@ export function CardItem({
 				<img className={`${item.img} w100`} src={image} alt='Error 404 :(' />
 			</div>
 			<div className={item.content}>
-				<h1>{brand}</h1>
-				<h2>Price: ${price}</h2>
-				<Button title='Buy' sendData={sendDataHandler} />
+				<section>
+					<h1>{brand}</h1>
+					<h2>Price: ${price}</h2>
+				</section>
+				<div className={item.btn}>
+					<Button title='Buy' sendData={sendDataHandler} />
+				</div>
 			</div>
 		</div>
 	)

@@ -43,19 +43,19 @@ $ws: 'Work Sans', sans-serif;
 		background-color: #060607;
 		color: white;
 	}
-}
-
-@media (max-width: 426px) {
-	.header {
-		padding: 0 30px;
+	
+	@media (max-width: 426px) {
+		.header {
+			padding: 0 30px;
+		}
 	}
-}
 
-@media (max-width: 316px) {
-	.header {
-		padding: 0 10px;
-	}
-	.footer {
-		padding: 20px 0;
+	@media (max-width: 316px) {
+		.header {
+			padding: 0 10px;
+		}
+		.footer {
+			padding: 20px 0;
+		}
 	}
 }

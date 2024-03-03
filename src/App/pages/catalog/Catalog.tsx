@@ -13,7 +13,7 @@ export function Catalog() {
 	const [popup, setPopup] = useState(false)
 	const [purchased, setPurchased] = useState(false)
 	const navigate = useNavigate()
-	const user = useTypedSelector(state => state.auth.user)
+	const { user } = useTypedSelector(state => state.auth)
 
 	const ferraris: TPurchasedItem[] = []
 
@@ -23,21 +23,21 @@ export function Catalog() {
 
 	return (
 		<Layout
-			postDataHandler={setQueryTerm}
-			openCart={setPopup}
 			search={search}
 			setSearch={setSearch}
+			setQueryTerm={setQueryTerm}
+			openCart={setPopup}
 		>
+			<Response
+				searchRequest={queryTerm}
+				purchased={ferraris}
+				goodsProducts={setPurchased}
+			/>
 			<Cart
 				open={popup}
 				purchased={purchased}
 				purchasedProduct={ferraris}
 				setOpen={setPopup}
-			/>
-			<Response
-				purchased={ferraris}
-				goodsProducts={setPurchased}
-				searchRequest={queryTerm}
 			/>
 		</Layout>
 	)

@@ -15,11 +15,11 @@
 			font-family: 'Work Sans', sans-serif;
 			margin-top: 10px;
 		}
+		.btn {
+			padding-top: 10px;
+		}
 	}
-}
-
-@media (max-width: 300px) {
-	.container {
+	@media (max-width: 300px) {
 		.content {
 			h1,
 			h2 {

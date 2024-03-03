@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { Button } from '../../components/ui/button/Button'
@@ -7,7 +7,7 @@ import login from './styles/login.module.scss'
 import { Field } from '../../components/field/Field'
 
 export function Login() {
-	const user = useTypedSelector(state => state.auth.user)
+	const { user } = useTypedSelector(state => state.auth)
 	const navigate = useNavigate()
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
@@ -23,24 +23,30 @@ export function Login() {
 		} else setValid(true)
 	}, [email, password])
 
-	const emailHandler = (e: ChangeEvent<HTMLInputElement>) => {
-		setEmail(e.target.value)
-		if (e.target.value !== user?.email) {
-			setEmailError('Данные не совпадают. Проверьте ваш email')
-		} else setEmailError('')
-	}
+	const emailHandler = useCallback(
+		(e: ChangeEvent<HTMLInputElement>) => {
+			setEmail(e.target.value)
+			if (e.target.value !== user?.email) {
+				setEmailError('Данные не совпадают. Проверьте ваш email')
+			} else setEmailError('')
+		},
+		[email, setEmailError]
+	)
 
-	const passwordHandler = (e: ChangeEvent<HTMLInputElement>) => {
-		setPassword(e.target.value)
-		if (e.target.value !== user?.password) {
-			setPasswordError('Данные не совпадают. Проверьте ваш пароль')
-		} else setPasswordError('')
-	}
+	const passwordHandler = useCallback(
+		(e: ChangeEvent<HTMLInputElement>) => {
+			setPassword(e.target.value)
+			if (e.target.value !== user?.password) {
+				setPasswordError('Данные не совпадают. Проверьте ваш пароль')
+			} else setPasswordError('')
+		},
+		[password, setPasswordError]
+	)
 
 	const onLoginHandler = () => navigate('/catalog')
 
 	return (
-		<div className={`${login.parent} df jcc aic`}>
+		<main className={`${login.parent} df jcc aic`}>
 			<div className={`${login.container} cw df fdc rcsf`}>
 				<Field
 					title='Email'
@@ -66,6 +72,6 @@ export function Login() {
 					</span>
 				</div>
 			</div>
-		</div>
+		</main>
 	)
 }

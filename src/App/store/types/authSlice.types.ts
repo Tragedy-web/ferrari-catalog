@@ -1,15 +1,10 @@
 export type TypeInitialState = {
-	error: string | null
 	user: TypeAuth | null
-	isAdmin?: TypeAdminAuth | null
+	isAdmin: boolean
 }
 
 export type TypeAuth = {
 	email: string
 	password: string
 	confirmPassword: string
-}
-
-export type TypeAdminAuth = {
-	isAdmin: string
 }
