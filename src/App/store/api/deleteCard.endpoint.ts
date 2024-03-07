@@ -1,12 +1,8 @@
 import { ferrariApi } from './ferrari.api'
 
-type SuccessDelete = {
-	success: boolean
-}
-
 const deleteCard = ferrariApi.injectEndpoints({
 	endpoints: builder => ({
-		deleteProduct: builder.mutation<SuccessDelete, number>({
+		deleteProduct: builder.mutation<null, number>({
 			query: id => ({
 				url: `/cards/${id}`,
 				method: 'DELETE',
