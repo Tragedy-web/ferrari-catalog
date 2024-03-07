@@ -1,14 +1,20 @@
 import { TypeFerrariItem } from '../../../types/cardItem.types'
+import { useDeleteProductMutation } from '../../store/api/deleteCard.endpoint'
+import { useTypedSelector } from '../../store/hooks/useTypedSelector'
 import { Button } from '../ui/button/Button'
 import item from './styles/cardItem.module.scss'
 
 export function CardItem({
+	id,
 	brand,
 	price,
 	image,
 	purchased,
 	buyProduct,
 }: TypeFerrariItem) {
+	const { isAdmin } = useTypedSelector(state => state.auth)
+	const [trigger] = useDeleteProductMutation()
+
 	const sendDataHandler = () => {
 		const isExist = purchased.some(car => car.brand === brand)
 		if (isExist) return
@@ -17,7 +23,6 @@ export function CardItem({
 			purchased.push({ brand, price })
 		}
 	}
-
 	return (
 		<div className={item.container}>
 			<div>
@@ -28,8 +33,11 @@ export function CardItem({
 					<h1>{brand}</h1>
 					<h2>Price: ${price}</h2>
 				</section>
-				<div className={item.btn}>
+				<div className={`${item.btn} df gr10`}>
 					<Button title='Buy' sendData={sendDataHandler} />
+					{isAdmin && (
+						<Button title='Delete' sendData={() => trigger(id)} />
+					)}
 				</div>
 			</div>
 		</div>

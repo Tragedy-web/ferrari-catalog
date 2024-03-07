@@ -3,7 +3,7 @@
 	width: 100%;
 	border-radius: 10px;
 	.img {
-		height: 30%;
+		max-height: (1400px / 230px * 100%);
 		border-top-right-radius: 10px;
 		border-top-left-radius: 10px;
 	}

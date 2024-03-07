@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { NotFound } from './pages/404/NotFound.tsx'
-import { AdminPanel } from './pages/adminPanel/AdminPanel.tsx'
 import { Catalog } from './pages/catalog/Catalog.tsx'
 import { Home } from './pages/home/Home.tsx'
 import { Login } from './pages/login/Login.tsx'
@@ -17,7 +16,6 @@ export const Landing = () => {
 				<Route path='/registration' element={<Registration />} />
 				<Route path='/catalog' element={<Catalog />} />
 				<Route path='/profile' element={<Profile />} />
-				<Route path='/admin' element={<AdminPanel />} />
 			</Routes>
 		</BrowserRouter>
 	)

@@ -1,10 +1,10 @@
 import { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
+import { Field } from '../../components/field/Field'
 import { Button } from '../../components/ui/button/Button'
 import { useTypedSelector } from '../../store/hooks/useTypedSelector'
 import login from './styles/login.module.scss'
-import { Field } from '../../components/field/Field'
 
 export function Login() {
 	const { user } = useTypedSelector(state => state.auth)

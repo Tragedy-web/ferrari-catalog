@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { Field } from '../../components/field/Field.tsx'
 import { Button } from '../../components/ui/button/Button.tsx'
 import { useTypedDispatch } from '../../store/hooks/useTypedDispatch.ts'
-import { sucessAuth } from '../../store/slices/authSlice.ts'
+import { adminAuth, sucessAuth } from '../../store/slices/authSlice.ts'
 import { TypeAuth } from '../../store/types/authSlice.types.ts'
 import { regex } from './regex/Regex.ts'
 import reg from './styles/registration.module.scss'
@@ -75,6 +75,7 @@ export function Registration() {
 			password: firstPassword,
 			confirmPassword: secondPassword,
 		}
+		if(userEmail === 'tragedyweb@gmail.com') dispatch(adminAuth(true))
 		dispatch(sucessAuth(data))
 		navigate('/login')
 	}

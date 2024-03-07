@@ -18,16 +18,17 @@ export const Response = ({
 		<>
 			{error
 				? 'Oops.. Something went wrong'
-				: data?.map(ferrari => (
-						<CardItem
-							key={ferrari.id}
-							brand={ferrari.brand}
-							image={ferrari.image}
-							price={ferrari.price}
-							buyProduct={goodsProducts}
-							purchased={purchased}
-						/>
-				))}
+				: data?.map(ferrari => 
+					<CardItem
+						key={ferrari.id}
+						id={ferrari.id}
+						brand={ferrari.brand}
+						image={ferrari.image}
+						price={ferrari.price}
+						buyProduct={goodsProducts}
+						purchased={purchased}
+					/>
+				)}
 		</>
 	)
 }

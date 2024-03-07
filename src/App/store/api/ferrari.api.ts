@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { TypeFerrariApi } from './models/ferrari.models'
+import { TypeFerrari } from './models/api.models'
 
 const api_url = 'https://server-b2xy.onrender.com'
 
@@ -8,8 +8,14 @@ export const ferrariApi = createApi({
 	tagTypes: ['Ferrari'],
 	baseQuery: fetchBaseQuery({ baseUrl: api_url }),
 	endpoints: builder => ({
-		getAllFerrari: builder.query<TypeFerrariApi[], string>({
-			query: parameter => parameter === '' ? '/cards' : `/cards?brand=${parameter}`
+		getAllFerrari: builder.query<TypeFerrari[], string>({
+			query: parameter =>
+				parameter === '' ? '/cards' : `/cards?brand=${parameter}`,
+			providesTags: () => [
+				{
+					type: 'Ferrari',
+				},
+			],
 		}),
 	}),
 })

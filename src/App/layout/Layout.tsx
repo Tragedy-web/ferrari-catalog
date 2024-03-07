@@ -1,11 +1,11 @@
 import { Button } from 'antd'
 import {
-	SearchOutlined,
+	FileAddOutlined,
 	ShoppingCartOutlined,
 	UserOutlined,
 } from '@ant-design/icons'
 import { Content, Footer, Header } from 'antd/es/layout/layout'
-import { PropsWithChildren } from 'react'
+import { FormEvent, PropsWithChildren } from 'react'
 import { Input } from 'antd'
 import { useNavigate } from 'react-router-dom'
 
@@ -14,6 +14,7 @@ import { useTypedSelector } from '../store/hooks/useTypedSelector'
 
 type TypeLayout = {
 	search: string
+	setCreatorOpen: (open: boolean) => void
 	setQueryTerm: (searchParam: string) => void
 	setSearch: (param: string) => void
 	openCart: (active: boolean) => void
@@ -22,18 +23,24 @@ type TypeLayout = {
 export function Layout({
 	children,
 	search,
+	setCreatorOpen,
 	setQueryTerm,
 	setSearch,
 	openCart,
 }: PropsWithChildren<TypeLayout>) {
 	const { avatar } = useTypedSelector(state => state.user)
+	const { isAdmin } = useTypedSelector(state => state.auth)
 	const navigate = useNavigate()
 
-	const postData = () => setQueryTerm(search)
+	const postData = (e: FormEvent) => {
+		e.preventDefault()
+		setQueryTerm(search)
+	}
+
 	return (
 		<div className={`${layout.container} cw`}>
 			<Header className={`${layout.header} df jcsb aic`}>
-				<div className='df aic gr10'>
+				<div>
 					<Button
 						className='df aic cw'
 						type='link'
@@ -45,16 +52,9 @@ export function Layout({
 							<UserOutlined />
 						)}
 					</Button>
-					<Button
-						className={layout.admin}
-						onClick={() => navigate('/admin')}
-						type='primary'
-					>
-						Admin
-					</Button>
 				</div>
 				<div className='df aic gr10'>
-					<div className='df aic gr10'>
+					<form onSubmit={postData} className='df aic gr10'>
 						<Input
 							value={search}
 							onChange={e => setSearch(e.target.value)}
@@ -62,10 +62,7 @@ export function Layout({
 							placeholder='Request...'
 							className={layout.field}
 						/>
-						<Button onClick={postData} className={layout.button}>
-							<SearchOutlined />
-						</Button>
-					</div>
+					</form>
 					<div className='df aic'>
 						<Button onClick={() => openCart(true)} className={layout.button}>
 							<ShoppingCartOutlined />
@@ -73,9 +70,18 @@ export function Layout({
 					</div>
 				</div>
 			</Header>
-			<Content className={layout.content}>
-				{children}
-			</Content>
+			{isAdmin && (
+				<nav className={layout.navbar}>
+					<Button
+						type='link'
+						className='cw'
+						onClick={() => setCreatorOpen(true)}
+					>
+						<FileAddOutlined /> Create
+					</Button>
+				</nav>
+			)}
+			<Content className={layout.content}>{children}</Content>
 			<Footer className={`${layout.footer} cw`}>
 				Ferrari Catalog | &copy; tragedyfiftyone
 			</Footer>

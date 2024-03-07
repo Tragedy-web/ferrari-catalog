@@ -19,5 +19,7 @@ export const beforeUpload = (file: RcFile) => {
 }
 
 export const fakeRequest = (onSucess?: any) => {
-	setTimeout(() => onSucess('ok'), 0)
-} 
+	setTimeout(() => {
+		onSucess('ok')
+	}, 0);
+}
