@@ -1,4 +1,4 @@
-import { TypeFerrariApi } from '../App/store/api/models/api.models'
+import { TypeFerrari } from '../App/store/api/models/api.models'
 
-export type TPurchasedItem = Omit<TypeFerrariApi, 'image'>
+export type TPurchasedItem = Omit<TypeFerrari, 'image'>
 export type TypePurchasedCard = Omit<TPurchasedItem, 'id'>
