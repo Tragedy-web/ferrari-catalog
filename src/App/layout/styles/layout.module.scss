@@ -8,12 +8,6 @@
 			max-width: 40px;
 			border-radius: 50%;
 		}
-		.admin {
-			background-color: #111111;
-		}
-		.admin:hover {
-			background-color: #202020;
-		}
 		.field {
 			max-width: 200px;
 			background: transparent;
@@ -39,6 +33,7 @@
 	.navbar {
 		padding: 10px 50px;
 		background-color: #060606;
+		border-top: 1px solid #121212;
 	}
 
 	.content {

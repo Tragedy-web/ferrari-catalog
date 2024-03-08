@@ -1,3 +1,4 @@
+import { EditOutlined } from '@ant-design/icons'
 import { TypeFerrariItem } from '../../../types/cardItem.types'
 import { useDeleteProductMutation } from '../../store/api/deleteCard.endpoint'
 import { useTypedSelector } from '../../store/hooks/useTypedSelector'
@@ -25,6 +26,11 @@ export function CardItem({
 	}
 	return (
 		<div className={item.container}>
+			{isAdmin && (
+				<div className={item.edit}>
+					<EditOutlined className={item.icon} />
+				</div>
+			)}
 			<div>
 				<img className={`${item.img} w100`} src={image} alt='Error 404 :(' />
 			</div>
@@ -35,9 +41,7 @@ export function CardItem({
 				</section>
 				<div className={`${item.btn} df gr10`}>
 					<Button title='Buy' sendData={sendDataHandler} />
-					{isAdmin && (
-						<Button title='Delete' sendData={() => trigger(id)} />
-					)}
+					{isAdmin && <Button title='Delete' sendData={() => trigger(id)} />}
 				</div>
 			</div>
 		</div>

@@ -1,13 +1,13 @@
 import { CloudUploadOutlined } from '@ant-design/icons'
 import { Modal, Spin, Upload, UploadProps } from 'antd'
-import { ChangeEvent, memo, useCallback, useEffect, useState } from 'react'
 import { RcFile } from 'antd/es/upload'
+import { ChangeEvent, memo, useCallback, useEffect, useState } from 'react'
 
+import { onTypingCarBrand, onTypingCarPrice } from '../../constants/regex/regex'
+import { useCreateCardMutation } from '../../store/api/createCard.endpoint'
+import { TypeFerrari } from '../../store/api/models/api.models'
 import { beforeUpload, getBase64 } from '../../utils/uploadAvatar'
 import { Field } from '../field/Field'
-import { useCreateCardMutation } from '../../store/api/createCard.endpoint'
-import { onTypingBrand, onTypingPrice } from './regex/regex'
-import { TypeFerrari } from '../../store/api/models/api.models'
 
 type TypeCard = {
 	open: boolean
@@ -32,14 +32,14 @@ function NewCard({ open, cancelOpen }: TypeCard) {
 
 	const updateBrand = useCallback((e: ChangeEvent<HTMLInputElement>) => {
 		setBrand(e.target.value)
-		if (!onTypingBrand.test(e.target.value))
+		if (!onTypingCarBrand.test(e.target.value))
 			setBrandError('Введите корректное название')
 		else setBrandError('')
 	}, [brand, setBrandError])
 
 	const updatePrice = useCallback((e: ChangeEvent<HTMLInputElement>) => {
 		setPrice(e.target.value)
-		if (!onTypingPrice.test(e.target.value))
+		if (!onTypingCarPrice.test(e.target.value))
 			setPriceError('Введите корректные данные')
 		else setPriceError('')
 	}, [price, setPriceError])
@@ -118,4 +118,4 @@ function NewCard({ open, cancelOpen }: TypeCard) {
 	)
 }
 
-export const CreateCard = memo(NewCard)
+export const CreateCard = memo(NewCard, (prev, next) => prev === next)

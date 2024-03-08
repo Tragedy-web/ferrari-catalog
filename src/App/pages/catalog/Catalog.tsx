@@ -31,7 +31,13 @@ export function Catalog() {
 			setQueryTerm={setQueryTerm}
 			openCart={setPopup}
 		>
-			<CreateCard 
+			<Cart
+				open={popup}
+				purchased={purchased}
+				purchasedProduct={ferraris}
+				setOpen={setPopup}
+			/>
+			<CreateCard
 				open={isOpen}
 				cancelOpen={setIsOpen}
 			/>
@@ -39,12 +45,6 @@ export function Catalog() {
 				searchRequest={queryTerm}
 				purchased={ferraris}
 				goodsProducts={setPurchased}
-			/>
-			<Cart
-				open={popup}
-				purchased={purchased}
-				purchasedProduct={ferraris}
-				setOpen={setPopup}
 			/>
 		</Layout>
 	)

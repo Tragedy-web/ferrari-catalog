@@ -18,7 +18,8 @@ export function Login() {
 	useEffect(() => {
 		if (!email || !password) {
 			setValid(false)
-		} else if (emailError || passwordError) {
+		}
+		else if (emailError || passwordError) {
 			setValid(false)
 		} else setValid(true)
 	}, [email, password])
@@ -44,6 +45,7 @@ export function Login() {
 	)
 
 	const onLoginHandler = () => navigate('/catalog')
+
 
 	return (
 		<main className={`${login.parent} df jcc aic`}>
