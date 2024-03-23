@@ -9,7 +9,6 @@ import { Content } from 'antd/es/layout/layout'
 
 export const Home = () => {
 	const navigate = useNavigate()
-
 	return (
 		<Layout className={home.container}>
 			<Header className={`${home.header} df jcsb aic`}>
@@ -30,7 +29,9 @@ export const Home = () => {
 				</div>
 			</Header>
 			<Content className={`${home.content} df jcc aic`}>
-				<Title className={`${home.title} tac`}>Пожалуйста, войдите в аккаунт</Title>
+				<Title className={`${home.title} tac`}>
+					Please login to your account
+				</Title>
 			</Content>
 			<Footer className={`${home.footer} tac`}>
 				Ferrari Catalog | &copy; tragedyfiftyone

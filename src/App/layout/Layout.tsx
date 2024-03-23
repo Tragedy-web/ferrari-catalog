@@ -1,36 +1,36 @@
-import { Button } from 'antd'
 import {
 	FileAddOutlined,
 	ShoppingCartOutlined,
 	UserOutlined,
 } from '@ant-design/icons'
+import { Button, Input, Spin } from 'antd'
 import { Content, Footer, Header } from 'antd/es/layout/layout'
-import { FormEvent, PropsWithChildren } from 'react'
-import { Input } from 'antd'
+import { FormEvent, PropsWithChildren, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import { useTypedSelector } from '../hooks/useTypedSelector'
 import layout from './styles/layout.module.scss'
-import { useTypedSelector } from '../store/hooks/useTypedSelector'
 
 type TypeLayout = {
-	search: string
-	setCreatorOpen: (open: boolean) => void
+	setPanelOpen: (open: boolean) => void
 	setQueryTerm: (searchParam: string) => void
-	setSearch: (param: string) => void
 	openCart: (active: boolean) => void
 }
 
 export function Layout({
 	children,
-	search,
-	setCreatorOpen,
+	setPanelOpen,
 	setQueryTerm,
-	setSearch,
 	openCart,
 }: PropsWithChildren<TypeLayout>) {
-	const { avatar } = useTypedSelector(state => state.user)
-	const { isAdmin } = useTypedSelector(state => state.auth)
+	const [loading, setLoading] = useState(true)
+	const [search, setSearch] = useState('')
+	const { isAdmin, avatar } = useTypedSelector(state => state.user)
 	const navigate = useNavigate()
+
+	useEffect(() => {
+		if (children) setLoading(false)
+	}, [children])
 
 	const postData = (e: FormEvent) => {
 		e.preventDefault()
@@ -59,7 +59,7 @@ export function Layout({
 							value={search}
 							onChange={e => setSearch(e.target.value)}
 							type='search'
-							placeholder='Request...'
+							placeholder='Search...'
 							className={layout.field}
 						/>
 					</form>
@@ -72,16 +72,16 @@ export function Layout({
 			</Header>
 			{isAdmin && (
 				<nav className={layout.navbar}>
-					<Button
-						type='link'
-						className='cw'
-						onClick={() => setCreatorOpen(true)}
-					>
+					<Button type='link' className='cw' onClick={() => setPanelOpen(true)}>
 						<FileAddOutlined /> Create
 					</Button>
 				</nav>
 			)}
-			<Content className={layout.content}>{children}</Content>
+			<Content
+				className={loading ? `${layout.loader} df jcc aic` : layout.content}
+			>
+				{loading ? <Spin size='large' /> : children}
+			</Content>
 			<Footer className={`${layout.footer} cw`}>
 				Ferrari Catalog | &copy; tragedyfiftyone
 			</Footer>

@@ -1,9 +1,9 @@
-import { ferrariApi } from './ferrari.api'
-import { TypeFerrari } from './models/api.models'
+import { ferrariApi } from '../ferrari.api'
+import { TypeFerrari } from '../models/api.models'
 
 const createCard = ferrariApi.injectEndpoints({
 	endpoints: builder => ({
-		createCard: builder.mutation<TypeFerrari, TypeFerrari>({
+		createCard: builder.mutation<TypeFerrari, Omit<TypeFerrari, 'id'>>({
 			query: data => ({
 				url: '/cards',
 				method: 'POST',

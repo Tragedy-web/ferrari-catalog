@@ -1,79 +1,85 @@
-import { ChangeEvent, useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { Field } from '../../components/field/Field'
 import { Button } from '../../components/ui/button/Button'
-import { useTypedSelector } from '../../store/hooks/useTypedSelector'
+import { useDebounce } from '../../hooks/useDebounce'
+import { getUser } from '../../services/getUser.service'
+import { TypeAuth } from '../../types/auth.types'
 import login from './styles/login.module.scss'
 
 export function Login() {
-	const { user } = useTypedSelector(state => state.auth)
 	const navigate = useNavigate()
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [emailError, setEmailError] = useState('')
 	const [passwordError, setPasswordError] = useState('')
 	const [valid, setValid] = useState(false)
+	const [user, setUser] = useState<TypeAuth>()
+	const debounce = useDebounce(email, 600)
 
 	useEffect(() => {
 		if (!email || !password) {
 			setValid(false)
-		}
-		else if (emailError || passwordError) {
+		} else if (emailError || passwordError) {
 			setValid(false)
 		} else setValid(true)
-	}, [email, password])
+	}, [email, password, emailError, passwordError])
 
-	const emailHandler = useCallback(
-		(e: ChangeEvent<HTMLInputElement>) => {
-			setEmail(e.target.value)
-			if (e.target.value !== user?.email) {
-				setEmailError('Данные не совпадают. Проверьте ваш email')
-			} else setEmailError('')
-		},
-		[email, setEmailError]
-	)
+	useEffect(() => {
+		if (debounce) getUser(debounce, setUser, setValid)
+	}, [debounce])
 
-	const passwordHandler = useCallback(
-		(e: ChangeEvent<HTMLInputElement>) => {
-			setPassword(e.target.value)
-			if (e.target.value !== user?.password) {
-				setPasswordError('Данные не совпадают. Проверьте ваш пароль')
-			} else setPasswordError('')
-		},
-		[password, setPasswordError]
-	)
+	useEffect(() => {
+		if (user) {
+			if (email !== user.email) {
+				setEmailError('Email invalid. Please try again!')
+			} else if (password !== user.password) {
+				setPasswordError('Password invalid. Please try again!')
+			} else {
+				setEmailError('')
+				setPasswordError('')
+			}
+		}
+	}, [user, email, password])
 
-	const onLoginHandler = () => navigate('/catalog')
-
+	const onLoginHandler = () => {
+		if (user) {
+			localStorage.setItem('key', String(user.id))
+			navigate('/catalog')
+		}
+	}
 
 	return (
 		<main className={`${login.parent} df jcc aic`}>
-			<div className={`${login.container} cw df fdc rcsf`}>
+			<form
+				onSubmit={e => e.preventDefault()}
+				className={`${login.container} cw df fdc rcsf`}
+			>
 				<Field
 					title='Email'
 					type='text'
 					value={email}
-					changeData={emailHandler}
+					changeData={e => setEmail(e.target.value)}
 					error={emailError}
 				/>
 				<Field
 					title='Password'
 					type='password'
 					value={password}
-					changeData={passwordHandler}
+					changeData={e => setPassword(e.target.value)}
 					error={passwordError}
 				/>
 				<div className={`${login.router} df aic jcsb`}>
 					<Button isDisabled={!valid} sendData={onLoginHandler} title='Login' />
-					<span>
-						Don't have an account?{' '}
-						<Link className={login.link} to={'/registration'}>
+					<div>
+						<span>Don't have an account?</span>{' '}
+						<Link to={'/registration'} className={login.link}>
 							Register
 						</Link>
-					</span>
+					</div>
 				</div>
-			</div>
+			</form>
 		</main>
 	)
 }

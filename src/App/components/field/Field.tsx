@@ -1,4 +1,5 @@
 import { ChangeEvent } from 'react'
+
 import field from './styles/field.module.scss'
 
 type TypeField = {
@@ -12,7 +13,7 @@ type TypeField = {
 
 export function Field({
 	title,
-	placeholder = 'Введите текст...',
+	placeholder = 'Enter text...',
 	type,
 	value,
 	error,

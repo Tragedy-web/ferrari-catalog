@@ -1,34 +1,36 @@
-import { TPurchasedItem } from '../../../types/purchased.types'
+import { message } from 'antd'
+
+import { useEditCardMutation } from '../../store/api/cards/editCard.endpoint'
 import { useGetAllFerrariQuery } from '../../store/api/ferrari.api'
 import { CardItem } from '../cardItem/CardItem'
+import { TypeFerrari } from '../../store/api/models/api.models'
+import { memo } from 'react'
 
 type TypeResponse = {
 	searchRequest: string
-	purchased: TPurchasedItem[]
 	goodsProducts: (value: boolean) => void
+	products: TypeFerrari[]
 }
 
-export const Response = ({
-	searchRequest,
-	purchased,
-	goodsProducts,
-}: TypeResponse) => {
+export const Data = ({ searchRequest, goodsProducts, products }: TypeResponse) => {
 	const { data, error } = useGetAllFerrariQuery(searchRequest)
+	const [trigger] = useEditCardMutation()
+
 	return (
 		<>
 			{error
-				? 'Oops.. Something went wrong'
-				: data?.map(ferrari => 
+				? message.error(`Error when fetching data: ${JSON.stringify(error)}`)
+				: data?.map(ferrari => (
 					<CardItem
+						{...ferrari}
 						key={ferrari.id}
-						id={ferrari.id}
-						brand={ferrari.brand}
-						image={ferrari.image}
-						price={ferrari.price}
 						buyProduct={goodsProducts}
-						purchased={purchased}
+						products={products}
+						request={trigger}
 					/>
-				)}
+				))}
 		</>
 	)
 }
+
+export const Response = memo(Data, (prev, next) => prev === next)

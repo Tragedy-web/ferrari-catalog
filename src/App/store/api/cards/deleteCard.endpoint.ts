@@ -1,4 +1,4 @@
-import { ferrariApi } from './ferrari.api'
+import { ferrariApi } from '../ferrari.api'
 
 const deleteCard = ferrariApi.injectEndpoints({
 	endpoints: builder => ({

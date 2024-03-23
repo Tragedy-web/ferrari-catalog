@@ -10,7 +10,7 @@ export const ferrariApi = createApi({
 	endpoints: builder => ({
 		getAllFerrari: builder.query<TypeFerrari[], string>({
 			query: parameter =>
-				parameter === '' ? '/cards' : `/cards?brand=${parameter}`,
+				parameter === '' ? '/cards' : `/cards?q=${parameter}`,
 			providesTags: () => [
 				{
 					type: 'Ferrari',

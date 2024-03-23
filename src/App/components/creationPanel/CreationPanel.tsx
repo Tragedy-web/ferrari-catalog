@@ -1,20 +1,30 @@
 import { CloudUploadOutlined } from '@ant-design/icons'
 import { Modal, Spin, Upload, UploadProps } from 'antd'
 import { RcFile } from 'antd/es/upload'
-import { ChangeEvent, memo, useCallback, useEffect, useState } from 'react'
+import { ChangeEvent, useCallback, useEffect, useState } from 'react'
 
 import { onTypingCarBrand, onTypingCarPrice } from '../../constants/regex/regex'
-import { useCreateCardMutation } from '../../store/api/createCard.endpoint'
 import { TypeFerrari } from '../../store/api/models/api.models'
 import { beforeUpload, getBase64 } from '../../utils/uploadAvatar'
 import { Field } from '../field/Field'
 
-type TypeCard = {
+type TypeCreateCard = {
+	current?: number
+	text: string
+	placeholder: string
 	open: boolean
+	trigger: any
 	cancelOpen: (cancel: boolean) => void
 }
 
-function NewCard({ open, cancelOpen }: TypeCard) {
+export function CreationPanel({
+	open,
+	cancelOpen,
+	text,
+	placeholder,
+	trigger,
+	current,
+}: TypeCreateCard) {
 	const [imageUrl, setImageUrl] = useState<string>()
 	const [brand, setBrand] = useState('')
 	const [price, setPrice] = useState('')
@@ -22,7 +32,6 @@ function NewCard({ open, cancelOpen }: TypeCard) {
 	const [priceError, setPriceError] = useState('')
 	const [isCorrect, setIsCorrect] = useState(false)
 	const [loading, setLoading] = useState(false)
-	const [trigger] = useCreateCardMutation()
 
 	useEffect(() => {
 		if (!brand || !price || !imageUrl) setIsCorrect(false)
@@ -30,19 +39,25 @@ function NewCard({ open, cancelOpen }: TypeCard) {
 		else setIsCorrect(true)
 	}, [brand, price, imageUrl, brandError, priceError])
 
-	const updateBrand = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-		setBrand(e.target.value)
-		if (!onTypingCarBrand.test(e.target.value))
-			setBrandError('Введите корректное название')
-		else setBrandError('')
-	}, [brand, setBrandError])
+	const updateBrand = useCallback(
+		(e: ChangeEvent<HTMLInputElement>) => {
+			setBrand(e.target.value)
+			if (!onTypingCarBrand.test(e.target.value))
+				setBrandError('Введите корректное название')
+			else setBrandError('')
+		},
+		[brand, setBrandError]
+	)
 
-	const updatePrice = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-		setPrice(e.target.value)
-		if (!onTypingCarPrice.test(e.target.value))
-			setPriceError('Введите корректные данные')
-		else setPriceError('')
-	}, [price, setPriceError])
+	const updatePrice = useCallback(
+		(e: ChangeEvent<HTMLInputElement>) => {
+			setPrice(e.target.value)
+			if (!onTypingCarPrice.test(e.target.value))
+				setPriceError('Введите корректную цену')
+			else setPriceError('')
+		},
+		[price, setPriceError]
+	)
 
 	const onUploadImage: UploadProps['onChange'] = useCallback(
 		({ file: info }: any) => {
@@ -61,8 +76,14 @@ function NewCard({ open, cancelOpen }: TypeCard) {
 		[loading, imageUrl]
 	)
 
+	const createServerData: Omit<TypeFerrari, 'id'> = {
+		brand,
+		price: Number(price),
+		image: imageUrl !== undefined ? imageUrl : '',
+	}
+
 	const updateServerData: TypeFerrari = {
-		id: Math.floor(Math.random() * 350),
+		id: current,
 		brand,
 		price: Number(price),
 		image: imageUrl !== undefined ? imageUrl : '',
@@ -81,10 +102,12 @@ function NewCard({ open, cancelOpen }: TypeCard) {
 	return (
 		<Modal
 			cancelButtonProps={{ style: { display: 'none' } }}
-			okText='Create'
+			okText={text}
 			onCancel={() => cancelOpen(false)}
 			okButtonProps={{ disabled: !isCorrect, style: { color: '#fff' } }}
-			onOk={() => trigger(updateServerData)}
+			onOk={() =>
+				trigger(text === 'Create' ? createServerData : updateServerData)
+			}
 			open={open}
 		>
 			<Upload
@@ -92,7 +115,7 @@ function NewCard({ open, cancelOpen }: TypeCard) {
 				name='Car Image'
 				beforeUpload={beforeUpload}
 				listType='picture-card'
-				action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+				action='https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188'
 				showUploadList={false}
 				onChange={onUploadImage}
 			>
@@ -100,7 +123,7 @@ function NewCard({ open, cancelOpen }: TypeCard) {
 			</Upload>
 			<Field
 				title='Brand'
-				placeholder='Car Name'
+				placeholder={placeholder}
 				value={brand}
 				changeData={updateBrand}
 				type='text'
@@ -108,7 +131,7 @@ function NewCard({ open, cancelOpen }: TypeCard) {
 			/>
 			<Field
 				title='Price'
-				placeholder='Car Price'
+				placeholder={placeholder}
 				value={price}
 				changeData={updatePrice}
 				type='text'
@@ -117,5 +140,3 @@ function NewCard({ open, cancelOpen }: TypeCard) {
 		</Modal>
 	)
 }
-
-export const CreateCard = memo(NewCard, (prev, next) => prev === next)

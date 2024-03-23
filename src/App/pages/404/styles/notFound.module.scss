@@ -1,0 +1,14 @@
+.container {
+	height: 100vh;
+	section {
+		h1, p {
+			font-size: 2em;
+			text-align: center;
+		}
+	}
+	.button {
+		background: transparent;
+		color: white;
+		margin-top: 10px;
+	}
+}

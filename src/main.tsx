@@ -1,9 +1,10 @@
 import ReactDOM from 'react-dom/client'
-import { Landing } from './App/Landing.tsx'
-import './App/assets/styles/global.scss'
 import { Provider } from 'react-redux'
-import { store } from './App/store/store.ts'
 import { ConfigProvider } from 'antd'
+
+import { Landing } from './App/Landing.tsx'
+import { store } from './App/store/store.ts'
+import './App/assets/styles/global.scss'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<Provider store={store}>
@@ -14,8 +15,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 						contentBg: '#060606',
                   headerBg: '#060606',
 						colorIcon: '#fff',
-						colorIconHover: 'rgb(240, 240, 240)'
-					},
+						colorIconHover: 'rgb(240, 240, 240)',
+						titleColor: '#fff'
+					}
 				},
 			}}
 		>

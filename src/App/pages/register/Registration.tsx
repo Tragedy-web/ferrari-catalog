@@ -3,14 +3,13 @@ import { useNavigate } from 'react-router-dom'
 
 import { Field } from '../../components/field/Field.tsx'
 import { Button } from '../../components/ui/button/Button.tsx'
+import { Navigate } from '../../components/ui/navigate/Navigate.tsx'
 import { EmailChecker } from '../../constants/regex/regex.ts'
-import { useTypedDispatch } from '../../store/hooks/useTypedDispatch.ts'
-import { adminAuth, sucessAuth } from '../../store/slices/authSlice.ts'
-import { TypeAuth } from '../../store/types/authSlice.types.ts'
+import { createUser } from '../../services/createUser.service.ts'
+import { TypeAuth } from '../../types/auth.types.ts'
 import reg from './styles/registration.module.scss'
 
-export function Registration() {
-	const dispatch = useTypedDispatch()
+export const Registration = () => {
 	const navigate = useNavigate()
 	const [userEmail, setUserEmail] = useState('')
 	const [firstPassword, setFirstPassword] = useState('')
@@ -34,7 +33,7 @@ export function Registration() {
 		(e: ChangeEvent<HTMLInputElement>) => {
 			setUserEmail(e.target.value)
 			if (!EmailChecker.test(e.target.value)) {
-				setEmailError('Ваши данные неккоректны')
+				setEmailError('Email invalid. Please enter a valid email address.')
 			} else setEmailError('')
 		},
 		[userEmail, setEmailError]
@@ -43,12 +42,12 @@ export function Registration() {
 	const passwordHandler = useCallback(
 		(e: ChangeEvent<HTMLInputElement>) => {
 			setFirstPassword(e.target.value)
-			if (e.target.value.length <= 3) {
-				setFirstPasswordError('Длина пароля меньше 3 символов')
-			} else setFirstPasswordError('')
-			if (e.target.value && secondPassword) {
+			if (e.target.value) {
 				comparePasswords(e.target.value, secondPassword)
 			}
+			if (e.target.value.length < 3) {
+				setFirstPasswordError('Password length must be more than 3 symbols')
+			} else setFirstPasswordError('')
 		},
 		[firstPassword, setFirstPasswordError]
 	)
@@ -56,8 +55,8 @@ export function Registration() {
 	const secondPasswordHandler = useCallback(
 		(e: ChangeEvent<HTMLInputElement>) => {
 			setSecondPassword(e.target.value)
-			if (e.target.value && firstPassword) {
-				comparePasswords(e.target.value, firstPassword)
+			if (e.target.value) {
+				comparePasswords(firstPassword, e.target.value)
 			}
 		},
 		[secondPassword]
@@ -65,23 +64,26 @@ export function Registration() {
 
 	const comparePasswords = (first: string, second: string) => {
 		if (first !== second) {
-			setSecondPasswordError('Пароли не совпадают')
+			setSecondPasswordError(`Passwords mismatch. Try again!`)
 		} else setSecondPasswordError('')
 	}
 
-	const sendData = () => {
-		if (userEmail === 'tragedyweb@gmail.com') dispatch(adminAuth(true))
-		const data: TypeAuth = {
+	const registrationHandler = () => {
+		const data: Omit<TypeAuth, 'id'> = {
 			email: userEmail,
 			password: firstPassword,
-			confirmPassword: secondPassword
+			isAdmin: false,
+			avatar: '',
 		}
-		dispatch(sucessAuth(data))
-		navigate('/login')
+		createUser(data, navigate, setFormValid)
 	}
+
 	return (
 		<main className={`${reg.parent} df jcc aic`}>
-			<div className={`${reg.container} cw df fdc rcsf`}>
+			<form
+				onSubmit={e => e.preventDefault()}
+				className={`${reg.container} cw df fdc rcsf`}
+			>
 				<Field
 					title='Email'
 					type='text'
@@ -103,14 +105,18 @@ export function Registration() {
 					changeData={secondPasswordHandler}
 					error={secondPasswordError}
 				/>
-				<div className={reg.btn}>
+				<div className={`${reg.navigation} df jcsb aic`}>
 					<Button
 						title='Register'
-						sendData={sendData}
+						sendData={registrationHandler}
 						isDisabled={!formValid}
 					/>
+					<div>
+						<span>Already have an account?</span>{' '}
+						<Navigate title='Log in' navigate='/login' />
+					</div>
 				</div>
-			</div>
+			</form>
 		</main>
 	)
 }

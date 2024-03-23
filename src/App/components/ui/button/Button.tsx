@@ -8,7 +8,7 @@ type TypeButton = {
 
 export function Button({ title, isDisabled, sendData }: TypeButton) {
 	return (
-		<button disabled={isDisabled} onClick={sendData} className={btn.button}>
+		<button disabled={isDisabled} onClick={sendData} className={`${btn.button} rcsf`}>
 			{title}
 		</button>
 	)

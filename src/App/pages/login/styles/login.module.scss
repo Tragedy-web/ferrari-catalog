@@ -26,9 +26,11 @@
 			.router {
 				flex-direction: column;
 				justify-content: flex-start;
-				span {
-					font-size: 1em;
+				div {
 					margin-top: 10px;
+					span {
+						font-size: 1em;
+					}
 				}
 			}
 		}

@@ -1,49 +1,78 @@
 import { EditOutlined } from '@ant-design/icons'
-import { TypeFerrariItem } from '../../../types/cardItem.types'
-import { useDeleteProductMutation } from '../../store/api/deleteCard.endpoint'
-import { useTypedSelector } from '../../store/hooks/useTypedSelector'
+import { Skeleton, message } from 'antd'
+import { useState } from 'react'
+
+import { useTypedSelector } from '../../hooks/useTypedSelector'
+import { TypeFerrariItem } from '../../types/cardItem.types'
+import { CreationPanel } from '../creationPanel/CreationPanel'
 import { Button } from '../ui/button/Button'
 import item from './styles/cardItem.module.scss'
+import { useDeleteProductMutation } from '../../store/api/cards/deleteCard.endpoint'
 
 export function CardItem({
 	id,
 	brand,
 	price,
 	image,
-	purchased,
 	buyProduct,
+	products,
+	request,
 }: TypeFerrariItem) {
-	const { isAdmin } = useTypedSelector(state => state.auth)
+	const [isLoaded, setIsLoaded] = useState(false)
+	const [edit, setEdit] = useState(false)
+	const { isAdmin } = useTypedSelector(state => state.user)
 	const [trigger] = useDeleteProductMutation()
 
 	const sendDataHandler = () => {
-		const isExist = purchased.some(car => car.brand === brand)
+		const isExist = products.some(item => item.brand === brand)
 		if (isExist) return
 		else {
 			buyProduct(true)
-			purchased.push({ brand, price })
+			products.push({ id, brand, price, image })
+			message.success('Product added to cart!')
 		}
 	}
+
 	return (
-		<div className={item.container}>
-			{isAdmin && (
-				<div className={item.edit}>
-					<EditOutlined className={item.icon} />
+		<>
+			<CreationPanel
+				current={id}
+				open={edit}
+				cancelOpen={setEdit}
+				text='Edit'
+				placeholder='Edit Car'
+				trigger={request}
+			/>
+			<div className={`${item.container} rcsf`}>
+				{isAdmin && (
+					<div onClick={() => setEdit(true)} className={item.edit}>
+						<EditOutlined className={item.icon} />
+					</div>
+				)}
+				<div>
+					<img
+						className={`${item.img} w100`}
+						onLoad={() => setIsLoaded(true)}
+						src={image}
+						alt='Error 404 :('
+					/>
+					{!isLoaded && (
+						<Skeleton.Image active={true} className={item.skeleton} />
+					)}
 				</div>
-			)}
-			<div>
-				<img className={`${item.img} w100`} src={image} alt='Error 404 :(' />
-			</div>
-			<div className={item.content}>
-				<section>
-					<h1>{brand}</h1>
-					<h2>Price: ${price}</h2>
-				</section>
-				<div className={`${item.btn} df gr10`}>
-					<Button title='Buy' sendData={sendDataHandler} />
-					{isAdmin && <Button title='Delete' sendData={() => trigger(id)} />}
+				<div className={item.content}>
+					<section>
+						<h1>{brand}</h1>
+						<h2>Price: ${price}</h2>
+					</section>
+					<div className={`${item.btn} df gr10`}>
+						<Button title='Buy' sendData={sendDataHandler} />
+						{isAdmin && (
+							<Button title='Delete' sendData={() => id && trigger(id)} />
+						)}
+					</div>
 				</div>
 			</div>
-		</div>
+		</>
 	)
 }

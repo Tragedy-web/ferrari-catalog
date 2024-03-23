@@ -1,8 +1,9 @@
 .modal {
-	color: #000;
 	hr {
-		height: 2px;
-		background-color: rgba(200,200,200, .8);
-		width: 85%;
+		height: 1px;
+		background-color: rgba(200, 200, 200, 0.5);
+	}
+	.fullPrice {
+		margin-top: 20px;
 	}
 }
