@@ -12,7 +12,7 @@ type TypeResponse = {
 	products: TypeFerrari[]
 }
 
-export const Data = ({ searchRequest, goodsProducts, products }: TypeResponse) => {
+const Data = ({ searchRequest, goodsProducts, products }: TypeResponse) => {
 	const { data, error } = useGetAllFerrariQuery(searchRequest)
 	const [trigger] = useEditCardMutation()
 
