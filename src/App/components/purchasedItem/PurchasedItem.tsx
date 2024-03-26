@@ -12,7 +12,7 @@ export function PurchasedItem({
 	price,
 	products,
 	setProducts,
-	setAllQuantity,
+	setAllQuantity
 }: TypePurchasedCard) {
 	const [quantity, setQuantity] = useState(1)
 
@@ -32,10 +32,8 @@ export function PurchasedItem({
 	}, [quantity])
 
 	return (
-		<div
-			className={`${item.container} cw df jcsb aic`}
-		>
-			<div className='df gr10'>
+		<div className={`${item.container} cw df jcsb aic`}>
+			<div className={`${item.content} df gr10`}>
 				<img className={item.preview} src={image} alt='not found' />
 				<section>
 					<h1>{brand}</h1>

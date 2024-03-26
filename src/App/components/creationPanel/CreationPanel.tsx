@@ -5,7 +5,7 @@ import { ChangeEvent, useCallback, useEffect, useState } from 'react'
 
 import { onTypingCarBrand, onTypingCarPrice } from '../../constants/regex/regex'
 import { TypeFerrari } from '../../store/api/models/api.models'
-import { beforeUpload, getBase64 } from '../../utils/uploadAvatar'
+import { beforeUpload, fakeRequest, getBase64 } from '../../utils/uploadAvatar'
 import { Field } from '../field/Field'
 
 type TypeCreateCard = {
@@ -115,7 +115,7 @@ export function CreationPanel({
 				name='Car Image'
 				beforeUpload={beforeUpload}
 				listType='picture-card'
-				action='https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188'
+				customRequest={fakeRequest}
 				showUploadList={false}
 				onChange={onUploadImage}
 			>

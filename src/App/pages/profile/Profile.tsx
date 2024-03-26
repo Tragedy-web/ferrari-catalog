@@ -3,16 +3,16 @@ import { Spin, Upload, UploadProps } from 'antd'
 import { RcFile } from 'antd/es/upload'
 import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { beforeUpload, getBase64 } from '../../utils/uploadAvatar'
+import { beforeUpload, fakeRequest, getBase64 } from '../../utils/uploadAvatar'
 
 import { Button } from '../../components/ui/button/Button'
 import { Navigate } from '../../components/ui/navigate/Navigate'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
 import { saveAvatar } from '../../services/saveAvatar.service'
 import { TUserAvatar } from '../../types/profile.types.ts'
-import profile from './styles/profile.module.scss'
 import { getUserInformation } from '../../services/getUserInformation.service.ts'
 import { useTypedDispatch } from '../../hooks/useTypedDispatch.ts'
+import profile from './styles/profile.module.scss'
 
 export function Profile() {
 	const navigate = useNavigate()
@@ -74,7 +74,7 @@ export function Profile() {
 					<Upload
 						name='avatar'
 						listType='picture-circle'
-						action='https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188'
+						customRequest={fakeRequest}
 						showUploadList={false}
 						beforeUpload={beforeUpload}
 						onChange={avatarChange}

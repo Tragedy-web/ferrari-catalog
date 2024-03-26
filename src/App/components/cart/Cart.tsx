@@ -24,7 +24,7 @@ export function Cart({
 	products,
 	setProducts,
 }: TypeCart) {
-	const [allQuantity, setAllQuantity] = useState(1)
+	const [allQuantity, setAllQuantity] = useState(0)
 	const [isValid, setIsValid] = useState(false)
 	const [loading, setLoading] = useState(false)
 
@@ -87,7 +87,7 @@ export function Cart({
 				<div className={cart.fullPrice}>
 					<span className='fz'>
 						Total:{' '}
-						{products.reduce((acc, item) => acc + item.price * allQuantity, 0)}$
+						{products.reduce((acc, product) => acc + product.price * allQuantity, 0)}$
 					</span>
 				</div>
 			</div>

@@ -6,4 +6,14 @@
 		max-width: 120px;
 		max-height: 90px;
 	}
+	@media (max-width: 400px) {
+		font-size: 1.1em;
+		.preview {
+			max-width: 100px;
+			max-height: 70px;
+		}
+	}
+	@media (max-width: 350px) {
+		flex-wrap: wrap;
+	}
 }
