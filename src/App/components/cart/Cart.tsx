@@ -84,7 +84,7 @@ export function Cart({
 				) : (
 					<span className='fz'>Please purchase the products!</span>
 				)}
-				<div className={cart.fullPrice}>
+				<div className={cart.total}>
 					<span className='fz'>
 						Total:{' '}
 						{products.reduce((acc, product) => acc + product.price * allQuantity, 0)}$
