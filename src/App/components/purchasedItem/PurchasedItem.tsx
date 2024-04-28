@@ -28,7 +28,7 @@ export function PurchasedItem({
 		if (quantity < 1) {
 			deleteProduct()
 			message.info('The product was successfully removed from the cart!')
-		} else setAllQuantity(quantity)
+		} else setAllQuantity(prev => prev + quantity)
 	}, [quantity])
 
 	return (
