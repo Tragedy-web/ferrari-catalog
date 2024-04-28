@@ -21,7 +21,7 @@ export function Field({
 }: TypeField) {
 	return (
 		<section className={field.section}>
-			<h1 className={`${field.title} cw`}>{title}</h1>
+			<h2 className={`${field.title} cw`}>{title}</h2>
 			<input
 				type={type}
 				value={value}

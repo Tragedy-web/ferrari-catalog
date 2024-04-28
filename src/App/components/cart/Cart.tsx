@@ -69,7 +69,7 @@ export function Cart({
 			<hr />
 			<div className={`${cart.modal} cw df fdc`}>
 				<section>
-					<h1 className='fz'>Your products:</h1>
+					<span className='fz'>Your products:</span>
 				</section>
 				{purchased ? (
 					products.map(product => (

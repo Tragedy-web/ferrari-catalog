@@ -43,7 +43,7 @@ export function CreationPanel({
 		(e: ChangeEvent<HTMLInputElement>) => {
 			setBrand(e.target.value)
 			if (!onTypingCarBrand.test(e.target.value))
-				setBrandError('Введите корректное название')
+				setBrandError('Brand is invalid')
 			else setBrandError('')
 		},
 		[brand, setBrandError]
@@ -53,7 +53,7 @@ export function CreationPanel({
 		(e: ChangeEvent<HTMLInputElement>) => {
 			setPrice(e.target.value)
 			if (!onTypingCarPrice.test(e.target.value))
-				setPriceError('Введите корректную цену')
+				setPriceError('Price is invalid')
 			else setPriceError('')
 		},
 		[price, setPriceError]

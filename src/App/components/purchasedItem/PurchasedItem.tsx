@@ -36,8 +36,8 @@ export function PurchasedItem({
 			<div className={`${item.content} df gr10`}>
 				<img className={item.preview} src={image} alt='not found' />
 				<section>
-					<h1>{brand}</h1>
-					<h2>{price} $</h2>
+					<h2>{brand}</h2>
+					<span>{price} $</span>
 				</section>
 			</div>
 			<div className={`${item.quantity} df gr10`}>

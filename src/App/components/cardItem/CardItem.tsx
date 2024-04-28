@@ -62,8 +62,8 @@ export function CardItem({
 				</div>
 				<div className={item.content}>
 					<section>
-						<h1>{brand}</h1>
-						<h2>Price: ${price}</h2>
+						<h2>{brand}</h2>
+						<span>Price: ${price}</span>
 					</section>
 					<div className={`${item.btn} df gr10`}>
 						<Button title='Buy' sendData={sendDataHandler} />
