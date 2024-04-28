@@ -29,8 +29,7 @@
 	}
 	.content {
 		padding: 10px;
-		h1,
-		h2 {
+		h2, span {
 			font-size: 1.3em;
 			font-family: 'Work Sans', sans-serif;
 			margin-top: 10px;
@@ -42,8 +41,8 @@
 
 	@media (max-width: 300px) {
 		.content {
-			h1,
-			h2 {
+			h2,
+			span {
 				font-size: 1em;
 			}
 		}
