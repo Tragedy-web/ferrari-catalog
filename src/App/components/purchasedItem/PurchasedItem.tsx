@@ -12,24 +12,30 @@ export function PurchasedItem({
 	price,
 	products,
 	setProducts,
-	setAllQuantity
+	setTotal
 }: TypePurchasedCard) {
 	const [quantity, setQuantity] = useState(1)
 
-	const quantityIncrement = () => setQuantity(quantity => quantity + 1)
-
-	const quantityDecrement = () => setQuantity(quantity => quantity - 1)
-
-	const deleteProduct = () => {
-		setProducts(products.filter(item => item.id !== id))
-	}
+	useEffect(() => {
+		setTotal(prev => prev + price);
+	}, []);
 
 	useEffect(() => {
 		if (quantity < 1) {
-			deleteProduct()
+			setProducts(products.filter(item => item.id !== id))
 			message.info('The product was successfully removed from the cart!')
-		} else setAllQuantity(quantity)
+		}
 	}, [quantity])
+
+	const quantityIncrement = () => {
+		setQuantity(quantity => quantity + 1)
+		setTotal(prev => prev + price)
+	}
+
+	const quantityDecrement = () => {
+		setQuantity(quantity => quantity - 1)
+		setTotal(prev => prev - price)
+	}
 
 	return (
 		<div className={`${item.container} cw df jcsb aic`}>

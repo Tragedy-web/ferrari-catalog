@@ -24,7 +24,7 @@ export function Cart({
 	products,
 	setProducts,
 }: TypeCart) {
-	const [allQuantity, setAllQuantity] = useState(0)
+	const [total, setTotal] = useState(0)
 	const [isValid, setIsValid] = useState(false)
 	const [loading, setLoading] = useState(false)
 
@@ -39,6 +39,7 @@ export function Cart({
 	const onBuyHandler = () => {
 		setLoading(true)
 		setTimeout(() => {
+			setTotal(0)
 			setProducts([])
 			setLoading(false)
 			message.success(
@@ -68,9 +69,7 @@ export function Cart({
 		>
 			<hr />
 			<div className={`${cart.modal} cw df fdc`}>
-				<section>
-					<span className='fz'>Your products:</span>
-				</section>
+				<h2 className='fz'>Your products:</h2>
 				{purchased ? (
 					products.map(product => (
 						<PurchasedItem
@@ -78,7 +77,7 @@ export function Cart({
 							key={product.id}
 							products={products}
 							setProducts={setProducts}
-							setAllQuantity={setAllQuantity}
+							setTotal={setTotal}
 						/>
 					))
 				) : (
@@ -86,8 +85,7 @@ export function Cart({
 				)}
 				<div className={cart.total}>
 					<span className='fz'>
-						Total:{' '}
-						{products.reduce((acc, product) => acc + product.price * allQuantity, 0)}$
+						Total: {total}$
 					</span>
 				</div>
 			</div>
